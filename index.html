@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Rizum（リズム） - あなたのペースで、習慣化。シンプルで使いやすい習慣管理アプリ。リマインダー、予定管理、ポモドーロタイマーで、あなたの集中力と習慣形成をサポートします。">
+    <meta name="keywords" content="Rizum, リズム, 習慣, リマインダー, ポモドーロ, 集中力, タスク管理, スケジュール, 習慣化">
+    <title>Rizum（リズム） - あなたのペースで、習慣化</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #007AFF;
+            --primary-dark: #0051D5;
+            --success-color: #34C759;
+            --warning-color: #FF9500;
+            --info-color: #5856D6;
+            --text-primary: #1C1C1E;
+            --text-secondary: #3A3A3C;
+            --text-tertiary: #8E8E93;
+            --background: #FFFFFF;
+            --surface: #F2F2F7;
+            --border: #D1D1D6;
+            --gradient-start: #007AFF;
+            --gradient-end: #5856D6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background-color: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background-color: var(--surface);
+            padding: 32px;
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #F2F2F7 0%, #E5E5EA 100%);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .benefit-item h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .benefit-item p {
+            color: var(--text-secondary);
+        }
+
+        /* Privacy Section */
+        .privacy {
+            padding: 100px 20px;
+            background-color: var(--background);
+        }
+
+        .privacy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .privacy-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--success-color) 0%, #28A745 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .privacy-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .privacy-feature {
+            background-color: var(--surface);
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .privacy-feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .privacy-feature h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .privacy-feature p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 100px 20px;
+            background-color: var(--surface);
+        }
+
+        .screenshots-slider {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 40px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screenshot-item {
+            flex: 0 0 300px;
+            scroll-snap-align: center;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--info-color) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px 40px;
+            background-color: var(--text-primary);
+            color: white;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .features-grid,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Rizum<br><span style="font-size: 24px; font-weight: 400; opacity: 0.9;">リズム</span></h1>
+            <p>あなたのペースで、習慣化。集中力をサポートし、習慣形成を助けるシンプルで使いやすいアプリです。リマインダー、予定管理、ポモドーロタイマーで、あなたの毎日をもっと快適に。</p>
+            <!-- 
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary"><i class="fab fa-apple"></i> App Storeからダウンロード</a>
+                <a href="#features" class="btn btn-secondary"><i class="fas fa-star"></i> 機能を見る</a>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">主な機能</h2>
+            <p class="section-subtitle">日常をサポートする、充実した機能</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"
+                        style="background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%); color: white;">
+                        <i class="fas fa-bell" style="font-size: 32px;"></i>
+                    </div>
+                    <h3>スマートリマインダー</h3>
+                    <p>シンプルな一回きりのリマインダーから、繰り返し実行が必要な習慣まで柔軟に管理。時間指定、曜日指定、月次繰り返しに対応し、あなたのペースに合わせて通知します。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"
+                        style="background: linear-gradient(135deg, #34C759 0%, #28A745 100%); color: white;">
+                        <i class="fas fa-stopwatch" style="font-size: 32px;"></i>
+                    </div>
+                    <h3>ポモドーロタイマー</h3>
+                    <p>集中時間と休憩時間を自動管理。25分作業・5分休憩のサイクルで、集中力を維持しながらタスクを進められます。セット数のカウントで達成感もアップ。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"
+                        style="background: linear-gradient(135deg, #FF9500 0%, #FF6B00 100%); color: white;">
+                        <i class="fas fa-calendar-alt" style="font-size: 32px;"></i>
+                    </div>
+                    <h3>予定管理</h3>
+                    <p>日時指定の予定や繰り返しスケジュールを簡単に管理。開始・終了時刻を設定でき、メモも添付可能。カレンダー形式で一目で予定を把握できます。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"
+                        style="background: linear-gradient(135deg, #5856D6 0%, #4527A0 100%); color: white;">
+                        <i class="fas fa-chart-line" style="font-size: 32px;"></i>
+                    </div>
+                    <h3>タイムライン表示</h3>
+                    <p>1日の予定とリマインダーを時系列で可視化。期間表示とポイント表示で、スケジュールを直感的に把握。今やるべきことが一目瞭然です。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"
+                        style="background: linear-gradient(135deg, #00C7BE 0%, #00A896 100%); color: white;">
+                        <i class="fas fa-tags" style="font-size: 32px;"></i>
+                    </div>
+                    <h3>カテゴリ管理</h3>
+                    <p>リマインダーや予定を色分けして整理。仕事、健康、趣味など、カテゴリごとに視覚的に区別できるから、情報の整理がスムーズに。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">使いやすさを追求した設計</h2>
+            <p class="section-subtitle">シンプルで直感的、誰でも使いやすい</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-gem" style="color: var(--primary-color);"></i></div>
+                    <h4>シンプルなUI</h4>
+                    <p>余計な情報を排除し、必要な機能だけを直感的に配置</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-eye" style="color: var(--success-color);"></i></div>
+                    <h4>視覚的なフィードバック</h4>
+                    <p>色、アイコン、アニメーションで状態を分かりやすく表示</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-moon" style="color: var(--info-color);"></i></div>
+                    <h4>ダークモード対応</h4>
+                    <p>目に優しいダークモードで、夜間も快適に使用可能</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-cog" style="color: var(--warning-color);"></i></div>
+                    <h4>柔軟な通知設定</h4>
+                    <p>あなたに合った通知をカスタマイズ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="privacy">
+        <div class="container">
+            <div class="privacy-content">
+                <div class="privacy-badge"><i class="fas fa-shield-alt"></i> プライバシー第一</div>
+                <h2 class="section-title">あなたのデータは、あなただけのもの</h2>
+                <p class="section-subtitle">全てのデータはデバイス内にローカル保存。外部サーバーへの送信は一切ありません。</p>
+
+                <div class="privacy-features">
+                    <div class="privacy-feature">
+                        <div class="privacy-feature-icon"><i class="fas fa-mobile-alt"
+                                style="color: var(--primary-color);"></i></div>
+                        <h4>ローカルストレージ</h4>
+                        <p>データは全てデバイス内に保存</p>
+                    </div>
+
+                    <div class="privacy-feature">
+                        <div class="privacy-feature-icon"><i class="fas fa-times-circle"
+                                style="color: var(--warning-color);"></i></div>
+                        <h4>外部送信なし</h4>
+                        <p>個人情報を外部に送信しません</p>
+                    </div>
+
+                    <div class="privacy-feature">
+                        <div class="privacy-feature-icon"><i class="fas fa-lock"
+                                style="color: var(--success-color);"></i></div>
+                        <h4>暗号化対応</h4>
+                        <p>OSレベルの暗号化で保護</p>
+                    </div>
+
+                    <div class="privacy-feature">
+                        <div class="privacy-feature-icon"><i class="fas fa-user-slash"
+                                style="color: var(--info-color);"></i></div>
+                        <h4>アカウント不要</h4>
+                        <p>個人情報の登録は一切不要</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="screenshots">
+        <div class="container">
+            <h2 class="section-title">アプリの画面</h2>
+            <p class="section-subtitle">直感的で使いやすいインターフェース</p>
+
+            <div class="screenshots-slider">
+                <div class="screenshot-item">
+                    <img src="img-top.png" alt="ホーム画面">
+                </div>
+                <div class="screenshot-item">
+                    <img src="img-list.png" alt="リマインダー画面">
+                </div>
+                <div class="screenshot-item">
+                    <img src="img-detail.png" alt="詳細画面">
+                </div>
+                <div class="screenshot-item">
+                    <img src="img-pomo.png" alt="ポモドーロタイマー">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>今すぐ始めよう</h2>
+            <p>Rizum（リズム）で、あなたのペースで習慣化。毎日をもっと快適に、もっと充実させましょう。</p>
+            <!-- 
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary"><i class="fab fa-apple"></i> App Storeからダウンロード</a>
+            </div>
+            -->
+            <p style="margin-top: 24px; font-size: 14px; opacity: 0.8;">無料でダウンロード・利用できます</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Rizum（リズム）</h4>
+                <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.8;">
+                    あなたのペースで、習慣化。シンプルで使いやすい習慣管理アプリ。あなたの集中力と習慣形成をサポートします。
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>機能</h4>
+                <ul>
+                    <li><a href="#features">リマインダー</a></li>
+                    <li><a href="#features">ポモドーロタイマー</a></li>
+                    <li><a href="#features">予定管理</a></li>
+                    <li><a href="#features">タイムライン</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>サポート</h4>
+                <ul>
+                    <li><a href="#">使い方ガイド</a></li>
+                    <li><a href="#">よくある質問</a></li>
+                    <li><a href="mailto:rizum.developer@gmail.com">お問い合わせ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>法的情報</h4>
+                <ul>
+                    <li><a href="https://sikakou54.github.io/rizum-terms/">利用規約</a></li>
+                    <li><a href="https://sikakou54.github.io/rizum-policy/">プライバシーポリシー</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Rizum. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .benefit-item, .privacy-feature').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
